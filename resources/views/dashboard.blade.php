@@ -1,17 +1,17 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<!-- resources/views/dashboard.blade.php -->
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
+@section('content')
+    <div class="container">
+        @if(Auth::user()->role === 'admin')
+            <h1>Dashboard Admin</h1>
+            <p>Selamat datang, {{ Auth::user()->name }}! Anda login sebagai Admin.</p>
+        @elseif(Auth::user()->role === 'user')
+            <h1>Dashboard User</h1>
+            <p>Selamat datang, {{ Auth::user()->name }}! Anda login sebagai User.</p>
+        @elseif(Auth::user()->role === 'seller')
+            <h1>Dashboard Penjual</h1>
+            <p>Selamat datang, {{ Auth::user()->name }}! Anda login sebagai Penjual.</p>
+        @endif
     </div>
-</x-app-layout>
+@endsection

@@ -12,18 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['admin', 'member','seller'])->default('member');
+
+            // 💡 PERBAIKAN UTAMA: Menggunakan string dengan batasan yang jelas, 
+            // dan menambahkan role 'member' dan 'seller' yang Anda gunakan di seeder.
+            $table->string('role', 20)->default('member'); // Contoh: Gunakan 'member' sebagai default
+            
+            // 💡 TAMBAHAN: Umumnya user memiliki alamat
+            $table->text('address')->nullable(); 
+
             $table->string('profile_picture')->nullable();
             $table->string('phone_number')->nullable();
+            
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
 
+        // Bagian password_reset_tokens dan sessions tidak diubah karena sudah standar
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
