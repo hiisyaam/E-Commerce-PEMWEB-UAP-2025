@@ -9,23 +9,28 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('stores', function (Blueprint $table) {
-            $table->id()->primary();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->string('logo');
-            $table->text('about');
-            $table->string('phone');
-            $table->string('address_id');
-            $table->string('city');
-            $table->text('address');
-            $table->string('postal_code');
-            $table->boolean('is_verified')->default(false);
-            $table->timestamps();
-        });
-    }
+ // File: database/migrations/xxxx_xx_xx_xxxxxx_create_stores_table.php
+
+public function up(): void
+{
+    Schema::create('stores', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        
+        // TAMBAHKAN KOLOM-KOLOM INI:
+        $table->string('name', 100);    // Untuk menampung 'Toko Seller 1' (Error 2)
+        $table->string('city', 50);     // Untuk menampung 'Malang' (Error 1)
+        
+        // Asumsi kolom lain yang Anda gunakan di seeder juga perlu ditambahkan:
+        $table->string('phone');
+        $table->text('address');
+        $table->string('postal_code', 10);
+        $table->boolean('is_verified')->default(false);
+        
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.
