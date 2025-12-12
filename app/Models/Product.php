@@ -41,8 +41,15 @@ class Product extends Model
     {
         return $this->hasMany(TransactionDetail::class);
     }
+    
     public function productReviews()
     {
         return $this->hasMany(ProductReview::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\ProductCategory::class, 'category_id');
+    }
+
 }

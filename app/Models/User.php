@@ -7,6 +7,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Store;
+use App\Models\UserBalance;
+use App\Models\VirtualAccount;
+use App\Models\CartItem;
+use App\Models\Transaction;
+use App\Models\Cart;
+use App\Models\Withdrawal;
 
 class User extends Authenticatable
 {
@@ -22,7 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'user_id',
     ];
 
     /**
@@ -70,8 +77,43 @@ class User extends Authenticatable
         return $this->hasOne(Store::class);
     }
 
-    public function buyer()
+    public function balance()
     {
-        return $this->hasOne(Buyer::class);
+        return $this->hasOne(UserBalance::class);
+    }
+
+    public function getBalance()
+    {
+        return $this->balance ? $this->balance->balance : 0;
+    }
+
+    public function virtualAccounts()
+    {
+        return $this->hasMany(VirtualAccount::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(\App\Models\Transaction::class, 'buyer_id');
+    }
+    
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(\App\Models\Cart::class);
+    }
+    
+    public function sellerTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'store_id', 'id');
+    }
+
+    public function withdrawals()
+    {
+        return $this->hasMany(Withdrawal::class, 'store_id');
     }
 }
