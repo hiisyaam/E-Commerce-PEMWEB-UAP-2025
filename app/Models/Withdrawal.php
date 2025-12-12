@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WithDrawal extends Model
+class Withdrawal extends Model
 {
-
     protected $fillable = [
         'store_balance_id',
         'amount',
@@ -14,6 +13,13 @@ class WithDrawal extends Model
         'bank_account_number',
         'bank_name',
         'status',
+        'admin_note',
+        'processed_at',
+    ];
+
+    protected $casts = [
+        'amount' => 'decimal:2',
+        'processed_at' => 'datetime',
     ];
 
     public function storeBalance()

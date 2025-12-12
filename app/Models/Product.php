@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Store;
 
 class Product extends Model
 {
@@ -31,7 +32,7 @@ class Product extends Model
     {
         return $this->belongsTo(ProductCategory::class);
     }
-
+    
     public function productImages()
     {
         return $this->hasMany(ProductImage::class);
