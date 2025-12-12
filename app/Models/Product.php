@@ -45,4 +45,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductReview::class);
     }
+    public function reviews()
+{
+    return $this->hasMany(\App\Models\ProductReview::class);
+}
 }

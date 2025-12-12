@@ -20,7 +20,9 @@ class Transaction extends Model
         'tracking_number',
         'tax',
         'grand_total',
+        'payment_method',   
         'payment_status',
+        'va_number',        
     ];
 
     protected $casts = [
@@ -33,6 +35,7 @@ class Transaction extends Model
     {
         return $this->belongsTo(Buyer::class);
     }
+
     public function store()
     {
         return $this->belongsTo(Store::class);
@@ -42,6 +45,13 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionDetail::class);
     }
+
+    
+    public function details()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
+
     public function productReviews()
     {
         return $this->hasMany(ProductReview::class);

@@ -58,13 +58,12 @@ class User extends Authenticatable
     {
         return $this->role === 'member';
     }
-    
-    // Cek apakah user adalah seller (punya store yang verified)
+
     public function isSeller()
     {
         return $this->store()->exists() && $this->store->is_verified;
     }
-    // relationships can hava one store 
+
     public function store()
     {
         return $this->hasOne(Store::class);
@@ -74,4 +73,16 @@ class User extends Authenticatable
     {
         return $this->hasOne(Buyer::class);
     }
+    public function balance()
+{
+    return $this->hasOne(UserBalance::class);
+}
+public function walletTransactions()
+{
+    return $this->hasMany(WalletTransaction::class);
+}
+public function wallet()
+{
+    return $this->hasOne(\App\Models\Wallet::class);
+}
 }
