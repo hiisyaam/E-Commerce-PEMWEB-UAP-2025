@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCategory extends Model
 {
-
     protected $fillable = [
         'parent_id',
         'image',
@@ -20,13 +19,14 @@ class ProductCategory extends Model
     {
         return $this->belongsTo(ProductCategory::class, 'parent_id', 'id');
     }
+
     public function children()
     {
         return $this->hasMany(ProductCategory::class, 'parent_id', 'id');
-    } 
+    }
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'product_category_id', 'id');
     }
 }

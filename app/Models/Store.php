@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\StoreBalance;
 
 class Store extends Model
 {
-
     protected $fillable = [
         'user_id',
         'name',
@@ -20,13 +20,12 @@ class Store extends Model
         'is_verified',
     ];
 
-    // relationships one store has one owner (user)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function storeBallance()
+    public function storeBalance()
     {
         return $this->hasOne(StoreBalance::class);
     }

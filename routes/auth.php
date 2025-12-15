@@ -57,3 +57,23 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+
+Route::middleware('auth')->get('/check-auth', function () {
+    return [
+        'authenticated' => auth()->check(),
+        'user' => auth()->user()
+    ];
+});
+
+Route::middleware(['auth', 'role:admin'])->get('/test-admin', function () {
+    return "Admin OK";
+});
+
+Route::middleware(['auth', 'role:member'])->get('/test-member', function () {
+    return "Member OK";
+});
+
+Route::middleware(['auth', 'role:seller'])->get('/test-seller', function () {
+    return "Seller OK";
+});
+
